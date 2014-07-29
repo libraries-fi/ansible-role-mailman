@@ -1,0 +1,24 @@
+- name: Install mailman
+  action: apt pkg=mailman state=present
+
+- name: Link mailman apache conf
+  file: src=/etc/mailman/apache.conf dest=/etc/apache2/sites-enabled/mailman state=link
+
+  notify:
+    - restart apache
+
+- name: Write exim4 main conf
+  template: src=exim_main_conf.j2 dest=/etc/exim4/conf.d/main/04_exim4-config_mailman
+            owner=root group=root mode=0644
+
+- name: Write exim4 tarnsport conf
+  template: src=exim_transport_conf.j2 dest=/etc/exim4/conf.d/transport/40_exim4-config_mailman
+            owner=root group=root mode=0644
+
+- name: Write exim4 router conf
+  template: src=exim_router_conf.j2 dest=/etc/exim4/conf.d/router/101_exim4-config_mailman
+            owner=root group=root mode=0644
+
+- name: Write apache conf
+  template: src=apache_conf.j2 dest=/etc/mailman/apache.conf
+            owner=root group=root mode=0644 
