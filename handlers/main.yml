@@ -13,5 +13,5 @@
 
 - name: restart exim
   service:
-    name: apache2
+    name: exim4
     state: restarted
