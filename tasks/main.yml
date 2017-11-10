@@ -1,0 +1,56 @@
+- name: Install Mailman
+  package:
+    name: mailman
+    state: present
+
+- name: Install Exim4
+  package:
+    name: exim4
+    state: present
+
+- name: Copy Exim4 main config
+  template:
+    src: 04_exim4-config_mailman.j2
+    dest: /etc/exim4/conf.d/main/04_exim4-config_mailman
+  notify:
+    - update exim config
+    - restart exim
+
+- name: Copy Exim4 transport config
+  template:
+    src: 40_exim4-config_mailman.j2
+    dest: /etc/exim4/conf.d/transport/40_exim4-config_mailman
+  notify:
+    - update exim config
+    - restart exim
+
+- name: Copy Exim4 router config
+  template:
+    src: 101_exim4-config_mailman.j2
+    dest: /etc/exim4/conf.d/router/101_exim4-config_mailman
+  notify:
+    - update exim config
+    - restart exim
+
+- name: Copy Mailman config
+  template:
+    src: mm_cfg.py.j2
+    dest: /etc/mailman/mm_cfg.py
+
+- name: Copy Apache config
+  template:
+    src: apache.conf.j2
+    dest: /etc/apache2/sites-available/mailman.conf
+  notify: reload apache
+
+- name: Enable Mailman Apache site
+  command: a2ensite mailman.conf
+  args:
+    creates: /etc/apache2/sites-enabled/mailman.conf
+  notify: reload apache
+
+- name: Enable CGI Apache module
+  apache2_module:
+    state: present
+    name: cgid
+  notify: restart apache

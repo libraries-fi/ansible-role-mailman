@@ -1,0 +1,29 @@
+<VirtualHost *:80>
+    ServerName {{ mailman_domain }}
+    DocumentRoot /var/www/
+
+    RedirectMatch ^/$ /mailman/listinfo
+
+    ScriptAlias /cgi-bin/mailman/ /usr/lib/cgi-bin/mailman/
+    ScriptAlias /mailman/ /usr/lib/cgi-bin/mailman/
+
+    <Directory /usr/lib/cgi-bin/mailman/>
+        AllowOverride None
+        Options ExecCGI
+        AddHandler cgi-script .cgi
+        Require all granted
+    </Directory>
+
+    Alias /pipermail/ /var/lib/mailman/archives/public/
+    <Directory /var/lib/mailman/archives/public/>
+        Options FollowSymlinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    Alias /images/mailman/ /usr/share/images/mailman/
+    <Directory /usr/share/images/mailman/>
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>

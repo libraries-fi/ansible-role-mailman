@@ -1,0 +1,16 @@
+mailman_router:
+  driver = accept
+  domains = +mm_domains
+  require_files = MM_LISTCHK
+  transport = mailman_transport
+  local_part_suffix_optional
+  local_part_suffix = -admin : \
+                      -bounces+* : \
+                      -confirm : \
+                      -confirm+* : \
+                      -join : \
+                      -leave : \
+                      -owner : \
+                      -request : \
+                      -subscribe : \
+                      -unsubscribe : \

@@ -1,0 +1,7 @@
+MM_HOME=/var/mailman
+MM_UID=list
+MM_GID=list
+MM_WRAP=MM_HOME/mail/mailman
+MM_LISTCHK=MM_HOME/lists/${lc::$local_part}/config.pck
+
+domainlist mm_domains={{ mailman_domain }}

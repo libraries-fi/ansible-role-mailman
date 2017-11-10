@@ -1,0 +1,17 @@
+- name: restart apache
+  service:
+    name: apache2
+    state: restarted
+
+- name: reload apache
+  service:
+    name: apache2
+    state: reloaded
+
+- name: update exim config
+  command: update-exim4.conf
+
+- name: restart exim
+  service:
+    name: apache2
+    state: restarted

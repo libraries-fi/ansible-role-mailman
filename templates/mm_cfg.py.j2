@@ -1,0 +1,16 @@
+# Import default settings
+from Defaults import *
+
+MAILMAN_SITE_LIST = 'mailman'
+DEFAULT_URL_PATTERN = 'http://%s/cgi-bin/mailman/'
+IMAGE_LOGOS = '/images/mailman/'
+
+DEFAULT_EMAIL_HOST = '{{ mailman_domain }}'
+DEFAULT_URL_HOST = '{{ mailman_domain }}'
+add_virtualhost(DEFAULT_URL_HOST, DEFAULT_EMAIL_HOST)
+
+DEFAULT_SEND_REMINDERS = {{ mailman_send_reminders }}
+
+USE_ENVELOPE_SENDER = {{ mailman_use_envelope_sender }}
+
+DEFAULT_SERVER_LANGUAGE = '{{ mailman_language }}'
