@@ -15,8 +15,6 @@ Role Variables
 
     mailman_domain: domain name to use for mailman, e.g. lists.example.com 
 
-Language to use for Mailman.
-
 Dependencies
 ------------
 
