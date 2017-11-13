@@ -5,6 +5,7 @@ mailman_router:
   transport = mailman_transport
   local_part_suffix_optional
   local_part_suffix = -admin : \
+                      -bounces : \
                       -bounces+* : \
                       -confirm : \
                       -confirm+* : \
