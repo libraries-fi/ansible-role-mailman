@@ -5,4 +5,14 @@ galaxy_info:
   min_ansible_version: 2.1.4
 
 dependencies:
-  - apache
+  - role: apache
+    apache_disabled_modules:
+      - mpm_prefork
+    apache_enabled_modules:
+      - mpm_event
+      - rewrite
+      - setenvif
+      - http2
+
+  - role: ajsalminen.apache_ssl
+    tags: ssl
